@@ -2,12 +2,12 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import dotenv from "dotenv";
-import Connection from "./shared/db";
-import checkRouting from "./modules/routes/check"
+import Connection from "./shared/db.js";
+import checkRouting from "./modules/routes/check.js"
 
 
 // Config
-dotenv.config({ path: path.resolve(__dirname, "./.env") });
+dotenv.config();
 const app = express();
 
 
@@ -30,5 +30,6 @@ app.use("/api/check",checkRouting)
 
 app.listen(process.env.PORTNUMBER || 5000, async () => {
     console.log("server is running")
-    await Connection()
+    // to connect with backend
+   // await Connection()
 })
