@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import Connection from "./shared/db.js";
 import authRouting from "./modules/routes/auth.js";
 import adminRouting from "./modules/routes/adminRoutes.js";
+import leaderboardRouting from "./modules/routes/leaderboardRoutes.js";
 
 // Config
 dotenv.config();
@@ -26,6 +27,7 @@ app.use(cookieParser());
 // Routing
 app.use("/api/auth", authRouting);
 app.use("/api/admin", adminRouting);
+app.use("/api/leaderboard", leaderboardRouting);
 
 app.listen(process.env.PORTNUMBER || 5000, async () => {
   await Connection();
