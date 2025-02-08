@@ -1,35 +1,31 @@
 import express from "express";
 import cors from "cors";
-import path from "path";
 import dotenv from "dotenv";
+import cookieParser from 'cookie-parser';
 import Connection from "./shared/db.js";
-import checkRouting from "./modules/routes/check.js"
-
+import authRouting from "./modules/routes/auth.js";
 
 // Config
 dotenv.config();
 const app = express();
 
-
 // to handle cors
 const corsOptions = {
-  origin: ["http://192.168.1.79:5173",""],
+  origin: ["http://192.168.1.79:5173", ""],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   optionsSuccessStatus: 200,
-  credentials:true
+  credentials: true
 };
-
-
 
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 
 // Routing
-app.use("/api/check",checkRouting)
+app.use("/api/auth", authRouting)
 
 app.listen(process.env.PORTNUMBER || 5000, async () => {
-    console.log("server is running")
-    // to connect with backend
-   // await Connection()
-})
+  await Connection();
+  console.log("server is running")
+});
