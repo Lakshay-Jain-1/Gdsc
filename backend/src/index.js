@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser';
 import Connection from "./shared/db.js";
 import authRouting from "./modules/routes/auth.js";
 import adminRouting from "./modules/routes/adminRoutes.js";
+import userRouting from "./modules/routes/userRoutes.js";
+import taskRouting from "./modules/routes/taskRoutes.js";
 import leaderboardRouting from "./modules/routes/leaderboardRoutes.js";
 
 // Config
@@ -27,6 +29,8 @@ app.use(cookieParser());
 // Routing
 app.use("/api/auth", authRouting);
 app.use("/api/admin", adminRouting);
+app.use("/api/user", userRouting);
+app.use("/api/tasks", taskRouting);
 app.use("/api/leaderboard", leaderboardRouting);
 
 app.listen(process.env.PORTNUMBER || 5000, async () => {

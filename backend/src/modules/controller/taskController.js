@@ -36,4 +36,22 @@ const deleteTask = async (req, res) => {
     }
 };
 
-export { createTask, updateTask, deleteTask };
+const getTaskById = async (req, res) => {
+    try {
+        const task = await Task.findById(req.params.taskId);
+        res.json(task);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+const getAllTasks = async (req, res) => {
+    try {
+        const tasks = await Task.find();
+        res.json(tasks);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+export { createTask, updateTask, deleteTask, getTaskById, getAllTasks };
