@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from 'cookie-parser';
 import Connection from "./shared/db.js";
 import authRouting from "./modules/routes/auth.js";
+import adminRouting from "./modules/routes/adminRoutes.js";
 
 // Config
 dotenv.config();
@@ -23,7 +24,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routing
-app.use("/api/auth", authRouting)
+app.use("/api/auth", authRouting);
+app.use("/api/admin", adminRouting);
 
 app.listen(process.env.PORTNUMBER || 5000, async () => {
   await Connection();
