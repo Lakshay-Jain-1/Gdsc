@@ -1,7 +1,8 @@
+import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import cookieParser from 'cookie-parser';
+
+import cookieParser from "cookie-parser";
 import Connection from "./shared/db.js";
 import authRouting from "./modules/routes/auth.js";
 import adminRouting from "./modules/routes/adminRoutes.js";
@@ -16,9 +17,9 @@ const app = express();
 // to handle cors
 const corsOptions = {
   origin: ["http://192.168.1.79:5173", ""],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   optionsSuccessStatus: 200,
-  credentials: true
+  credentials: true,
 };
 
 // Middleware
@@ -34,6 +35,11 @@ app.use("/api/tasks", taskRouting);
 app.use("/api/leaderboard", leaderboardRouting);
 
 app.listen(process.env.PORTNUMBER || 5000, async () => {
-  await Connection();
-  console.log("server is running")
+  try {
+    await Connection();
+    console.log(`Server is running on port ${process.env.PORTNUMBER || 5000}`);
+  } catch (err) {
+    console.error("Failed to connect to the database. Server not started.");
+    process.exit(1); // Exit the process with failure
+  }
 });
